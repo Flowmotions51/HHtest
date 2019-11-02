@@ -56,7 +56,7 @@ public class PageObject {
         authBtn.click();
 
         waitFor.until(ExpectedConditions.visibilityOf(authIcon));
-        
+
     }
 
     void logout() {

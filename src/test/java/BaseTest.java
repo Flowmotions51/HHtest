@@ -15,29 +15,29 @@ public class BaseTest {
 
 
     @DataProvider
-    public static Object[][] HHruCredentials(){
+    public static Object[][] HHruCredentials() {
         return new Object[][]{
-                {"qwerrw.erwrw@bk.ru","pspgo415120"}
+                {"qwerrw.erwrw@bk.ru", "pspgo415120"}
         };
     }
 
     @BeforeSuite
-    public void initFirefoxDriver(){
+    public void initFirefoxDriver() {
 
-        System.setProperty("webdriver.gecko.driver","/Users/user/Downloads/geckodriver");
+        System.setProperty("webdriver.gecko.driver", "/Users/user/Downloads/geckodriver");
 
-        driver=new FirefoxDriver();
+        driver = new FirefoxDriver();
 
     }
 
     @Test(dataProvider = "HHruCredentials")
-    public void loginToHHru(String login, String pwd){
+    public void loginToHHru(String login, String pwd) {
 
-        PJ=new PageObject(driver);
+        PJ = new PageObject(driver);
 
         PJ.init();
 
-        PJ.login(login,pwd);
+        PJ.login(login, pwd);
 
         PJ.logout();
 
@@ -46,7 +46,7 @@ public class BaseTest {
     }
 
     @AfterSuite
-    public void tearDown(){
+    public void tearDown() {
 
         driver.quit();
 
