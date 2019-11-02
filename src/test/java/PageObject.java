@@ -11,10 +11,11 @@ public class PageObject {
 
     private WebDriver driver;
 
+    private WebDriverWait waitFor;
 
-
-    public PageObject(WebDriver driver){
-        this.driver=driver;
+    public PageObject(WebDriver driver) {
+        this.driver = driver;
+        waitFor = new WebDriverWait(driver, 10);
     }
 
     @FindBy(css = ".supernova-navi_dashboard > div:nth-child(5)")
@@ -27,73 +28,53 @@ public class PageObject {
     private WebElement pwdBox;
 
     @FindBy(css = "input.bloko-button")
-    private WebElement getLoginBtn;
+    private WebElement authBtn;
 
     @FindBy(css = ".supernova-icon_profile")
-    private WebElement AuthIcon;
-    
+    private WebElement authIcon;
+
     @FindBy(css = "input.supernova-dropdown-option")
-    private WebElement LogoutBtn;
-    
+    private WebElement logoutBtn;
 
-
-    public void init(){
+    void init() {
 
         driver.get("https://hh.ru");
 
-        PageFactory.initElements(driver,this);
-
+        PageFactory.initElements(driver, this);
 
     }
 
-
-    public void login(String login, String pwd){
+    void login(String login, String pwd) {
 
         loginBtn.click();
 
-        WebDriverWait waitForLoginBox = new WebDriverWait(driver, 10);
-
-        waitForLoginBox.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".HH-AuthForm-Login")));
+        waitFor.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".HH-AuthForm-Login")));
 
         loginBox.sendKeys(login);
 
         pwdBox.sendKeys(pwd);
 
-        getLoginBtn.click();
+        authBtn.click();
 
-        WebDriverWait waitForAuth = new WebDriverWait(driver, 10);
-
-        waitForAuth.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".supernova-icon_profile")));
-
-
-
+        waitFor.until(ExpectedConditions.visibilityOf(authIcon));
 
     }
 
+    void logout() {
 
-    public void logout(){
+        authIcon.click();
 
-        AuthIcon.click();
 
-        WebDriverWait waitForProfileDropDown = new WebDriverWait(driver, 10);
+        waitFor.until(ExpectedConditions.visibilityOf(logoutBtn));
 
-       waitForProfileDropDown.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input.supernova-dropdown-option")));
-
-        LogoutBtn.click();
+        logoutBtn.click();
 
     }
 
-    boolean isAuthPassed(){
+    boolean isAuthPassed() {
 
-       return loginBtn.isDisplayed();
-
+        return loginBtn.isDisplayed();
 
     }
-
-
-
-
-
-
 
 }

@@ -21,14 +21,12 @@ public class BaseTest {
         };
     }
 
-
     @BeforeSuite
     public void initFirefoxDriver(){
 
         System.setProperty("webdriver.gecko.driver","/Users/user/Downloads/geckodriver");
 
         driver=new FirefoxDriver();
-
 
     }
 
@@ -43,20 +41,14 @@ public class BaseTest {
 
         PJ.logout();
 
-
         Assert.assertTrue(PJ.isAuthPassed());
-
-
-
-
 
     }
 
     @AfterSuite
     public void tearDown(){
 
-        //driver.quit();
-
+        driver.quit();
 
     }
 }
